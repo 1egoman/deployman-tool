@@ -1,0 +1,15 @@
+{
+  "name": "deployman-cmd",
+  "version": "0.0.0",
+  "description": "clientn command to interact with deployman",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Gaus",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.0",
+    "minimist": "^1.1.2"
+  }
+}

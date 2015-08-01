@@ -46,7 +46,6 @@ switch
     if args.slug
       request
         url: "http://#{DMAN_SERVER_DETAILS}/ports?slug=/tmp/repos/#{args.slug}.git&token=#{REQ_TOKEN}"
-        # url: "http://google.com"
         method: "get"
       , (err, resp, body) ->
         if err and err.code is 'ECONNREFUSED'
@@ -68,7 +67,10 @@ switch
 
     Arguments to specify:
     * #{chalk.cyan "--slug slugname"} specify a slug to a command
+    * #{chalk.cyan "--user username"} specify a username
+    * #{chalk.cyan "--pass password"} specify a password
 
+    Commands:
     * #{chalk.cyan "addremote"} use the specified slug name to add a remote
     to the current git repo. Like #{chalk.green "dman addremote --slug my-app --user my-username --pass my-password"}
 

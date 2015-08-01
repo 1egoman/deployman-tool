@@ -42,6 +42,25 @@ switch
       console.log chalk.red "You didn't format it right!"
 
 
+  when args._.indexOf('ports') isnt -1
+    if args.slug
+      request
+        url: "http://#{DMAN_SERVER_DETAILS}/ports?slug=/tmp/repos/#{args.slug}.git&token=#{REQ_TOKEN}"
+        # url: "http://google.com"
+        method: "get"
+      , (err, resp, body) ->
+        if err and err.code is 'ECONNREFUSED'
+          console.log chalk.red "If doesn't seem like your deployman server is up right now."
+        else if err
+          console.log chalk.red "Ummmm.... Well.... Something just happened....\n#{e}"
+        else
+          console.log "Ports for #{args.slug}:"
+          for dest, source of JSON.parse(body).ports
+            console.log "#{chalk.green source} -> #{chalk.cyan dest}"
+    else
+      console.log chalk.red "You didn't format it right!"
+
+
 
   when args.help or args._.length is 0
     console.log """
@@ -54,6 +73,8 @@ switch
     to the current git repo. Like #{chalk.green "dman addremote --slug my-app --user my-username --pass my-password"}
 
     * #{chalk.cyan "rebuild"} rebuild the specified slug. Like #{chalk.green "dman rebuild --slug my-app"}
+
+    * #{chalk.cyan "ports"} get the bound ports for a slug. Like #{chalk.green "dman ports --slug my-app"}
     """
 
 

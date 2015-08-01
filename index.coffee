@@ -3,7 +3,11 @@
 args = require("minimist")(process.argv.slice(2))
 chalk = require "chalk"
 {exec, spawn} = require "child_process"
-DMAN_SERVER_DETAILS = "192.168.1.9:7000"
+request = require "request"
+stdout = require 'stdout-stream'
+
+DMAN_SERVER_DETAILS = "server-nas:7000"
+REQ_TOKEN="UApgN9pEpZ5cj4NnOSChJqGp"
 
 switch
 
@@ -22,6 +26,21 @@ switch
     else
       console.log chalk.red "You didn't format it right!"
 
+  when args._.indexOf('rebuild') isnt -1
+    if args.slug
+      request(
+        url: "http://#{DMAN_SERVER_DETAILS}/rebuild?slug=/tmp/repos/#{args.slug}.git&token=#{REQ_TOKEN}"
+        # url: "http://google.com"
+        method: "get"
+      ).on 'error', (e) ->
+        if e.code is 'ECONNREFUSED'
+          console.log chalk.red "If doesn't seem like your deployman server is up right now."
+        else
+          console.log chalk.red "Ummmm.... Well.... Something just happened....\n#{e}"
+      .pipe stdout
+    else
+      console.log chalk.red "You didn't format it right!"
+
 
 
   when args.help or args._.length is 0
@@ -33,6 +52,8 @@ switch
 
     * #{chalk.cyan "addremote"} use the specified slug name to add a remote
     to the current git repo. Like #{chalk.green "dman addremote --slug my-app --user my-username --pass my-password"}
+
+    * #{chalk.cyan "rebuild"} rebuild the specified slug. Like #{chalk.green "dman rebuild --slug my-app"}
     """
 
 

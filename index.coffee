@@ -1,5 +1,3 @@
-#!/usr/bin/env coffee
-
 args = require("minimist")(process.argv.slice(2))
 chalk = require "chalk"
 {exec, spawn} = require "child_process"

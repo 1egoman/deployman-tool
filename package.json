@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "dman": "run.js"
+  },
   "author": "Ryan Gaus",
   "license": "MIT",
   "dependencies": {

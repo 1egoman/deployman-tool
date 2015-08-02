@@ -1,5 +1,5 @@
 {
-  "name": "deployman-cmd",
+  "name": "deployman-tool",
   "version": "0.0.0",
   "description": "clientn command to interact with deployman",
   "main": "index.coffee",
